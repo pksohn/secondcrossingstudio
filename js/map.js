@@ -46,13 +46,15 @@ function initializeMap() {
     mymap.invalidateSize();
 
     var bartLayer = L.layerGroup([lineLayer(bartLine, 'bart'), stationLayer(bartStations, 'bart')]);
-    var bartOneLayer = L.layerGroup([lineLayer(bartOneLine, "bart1"), stationLayer(bartOneStations, 'bart1')]);
-    var bartTwoLayer = L.layerGroup([lineLayer(bartTwoLine, "bart2"), stationLayer(bartTwoStations, 'bart2')]);
+    var bartOneLayer = L.layerGroup([lineLayer(bartCNLine, "bart1"), stationLayer(bartCNStations, 'bart1')]);
+    var bartTwoLayer = L.layerGroup([lineLayer(bartNOLine, "bart2"), stationLayer(bartNOStations, 'bart2')]);
+    var stdLayer = L.layerGroup([lineLayer(stdLine, "std"), stationLayer(stdStations, 'std')]);
 
     var overlayMaps = {
-        "Existing": bartLayer,
-        "BART 1": bartOneLayer,
-        "BART 2": bartTwoLayer
+        "Existing BART Network": bartLayer,
+        "Alternative 1 (BART): New Opportunities": bartTwoLayer,
+        "Alternative 2 (BART): Critical Needs": bartOneLayer,
+        "Alternative 3 (standard rail): Connecting the Megaregion": stdLayer
     };
 
     // initialize up the L.control.layers
@@ -70,8 +72,27 @@ window.setTimeout(function () {
 
 }, 1000);
 
+var stdStations = {
+    "type": "FeatureCollection",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 
-var bartOneStations = {
+    "features": [
+        { "type": "Feature", "properties": { "X": -122.277152, "Y": 37.806864, "Alt_ID": "2", "Name": "14th Street", "CrossSts": null }, "geometry": { "type": "Point", "coordinates": [-122.277152197293915, 37.806863805504285] } },
+        { "type": "Feature", "properties": { "X": 0.000000, "Y": 0.000000, "Alt_ID": null, "Name": "Transbay Terminal", "CrossSts": null }, "geometry": { "type": "Point", "coordinates": [-122.396315489114073, 37.789559158342684] } }
+    ]
+}
+
+var stdLine = {
+    "type": "FeatureCollection",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+
+    "features": [
+        { "type": "Feature", "properties": { "Existing": null, "Operator": null, "Alt": null, "Approach": null }, "geometry": { "type": "LineString", "coordinates": [[-122.39729856813419, 37.788986648922759], [-122.391348751779603, 37.793249084855603], [-122.390066383266301, 37.793761389474177], [-122.388607209958451, 37.794084058488664], [-122.386671469093685, 37.794522169442494], [-122.384135243308037, 37.794500612304589], [-122.381750545248408, 37.794416691865855], [-122.378918191086925, 37.794044642368966], [-122.375764375906485, 37.793459999406323], [-122.332618612642918, 37.781976002992046], [-122.294823894129863, 37.780145448980264], [-122.293505799886134, 37.780324613888098], [-122.292451416703983, 37.780616375980181], [-122.291657068193402, 37.781207781004198], [-122.291460754308005, 37.782100867154924], [-122.291168825369937, 37.785139616356687], [-122.290921550289625, 37.787433410645335], [-122.290303222261485, 37.78924802746274], [-122.288327254365242, 37.791620815066771], [-122.285369381134373, 37.79452417470047], [-122.283813505027524, 37.796154210877837], [-122.282746178151996, 37.797757392433176], [-122.280419219954211, 37.801409681714688], [-122.279764684136126, 37.803045163730424], [-122.274535269812915, 37.811478754390663], [-122.274260895913244, 37.812639603712789], [-122.274362231764243, 37.81380276723084], [-122.278336556581181, 37.826257398896054], [-122.278671278703399, 37.82661715301856], [-122.279306922634902, 37.826948939287043], [-122.280881751753327, 37.827316268900148], [-122.282345303318905, 37.827533856303049], [-122.287295112990847, 37.828666832766146], [-122.288267312959547, 37.829179458763925], [-122.289308396567321, 37.830348282473977], [-122.29023191551633, 37.83202313516415], [-122.290597167526144, 37.833128255036982], [-122.29207503166225, 37.84016142735895]] } }
+    ]
+}
+
+
+var bartCNStations = {
     "type": "FeatureCollection",
     "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 
@@ -88,7 +109,7 @@ var bartOneStations = {
     ]
 }
 
-var bartOneLine = {
+var bartCNLine = {
     "type": "FeatureCollection",
     "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 
@@ -98,7 +119,7 @@ var bartOneLine = {
     ]
 }
 
-var bartTwoStations = {
+var bartNOStations = {
     "type": "FeatureCollection",
     "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 
@@ -117,7 +138,7 @@ var bartTwoStations = {
     ]
 };
 
-var bartTwoLine = {
+var bartNOLine = {
     "type": "FeatureCollection",
     "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 
