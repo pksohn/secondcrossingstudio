@@ -14,12 +14,12 @@ function stationLayer(stations, type) {
         },
         pointToLayer: function(feature, latlng) {
             switch (type) {
-                case 'bart': return L.circleMarker(latlng, { radius: 3, fillColor: "#525252", color: "#525252", weight: 5, opacity: 1, fillOpacity: 1 });
-                case 'std': return L.circleMarker(latlng, { radius: 3, fillColor: "#fb9a99", color: "#fb9a99", weight: 5, opacity: 1, fillOpacity: 1 });
-                case 'bart1': return L.circleMarker(latlng, { radius: 3, fillColor: "#33a02c", color: "#33a02c", weight: 5, opacity: 1, fillOpacity: 1 });
-                case 'bart2': return L.circleMarker(latlng, { radius: 3, fillColor: "#1f78b4", color: "#1f78b4", weight: 5, opacity: 1, fillOpacity: 1 });
-                case 'commuter': return L.circleMarker(latlng, { radius: 3, fillColor: "#ff7f00", color: "#ff7f00", weight: 5, opacity: 1, fillOpacity: 1 });
-                case 'intercity': return L.circleMarker(latlng, { radius: 3, fillColor: "#807dba", color: "#807dba", weight: 5, opacity: 1, fillOpacity: 1 });
+                case 'bart': return L.circleMarker(latlng, { radius: 5, fillColor: "#ffffff", color: "#969696", weight: 2, opacity: 1, fillOpacity: 1 });
+                case 'std': return L.circleMarker(latlng, { radius: 5, fillColor: "#ffffff", color: "#fb9a99", weight: 2, opacity: 1, fillOpacity: 1 });
+                case 'bart1': return L.circleMarker(latlng, { radius: 5, fillColor: "#ffffff", color: "#33a02c", weight: 2, opacity: 1, fillOpacity: 1 });
+                case 'bart2': return L.circleMarker(latlng, { radius: 5, fillColor: "#ffffff", color: "#1f78b4", weight: 2, opacity: 1, fillOpacity: 1 });
+                case 'commuter': return L.circleMarker(latlng, { radius: 5, fillColor: "#ffffff", color: "#fdbb84", weight: 2, opacity: 1, fillOpacity: 1 });
+                case 'intercity': return L.circleMarker(latlng, { radius: 5, fillColor: "#ffffff", color: "#9e9ac8", weight: 2, opacity: 1, fillOpacity: 1 });
             }
         }
     });
@@ -36,6 +36,8 @@ function lineLayer(line, type) {
                 case 'bart2': return { "color": "#1f78b4", "weight": 7, "opacity": 0.8 }
                 case 'commuter': return { "color": "#fdbb84", "weight": 4, "opacity": 1 }
                 case 'intercity': return { "color": "#9e9ac8", "weight": 4, "opacity": 1 }
+                case 'dtx': return { "color": "#fdbb84", "weight": 4, "opacity": 1, "dashArray": "5, 5"}
+                // case 'dtx': return { "color": "#fdbb84", "weight": 4, "opacity": 1 }
             }
         }
     });
@@ -54,6 +56,7 @@ function initializeMap() {
     var bartLayer = L.layerGroup([lineLayer(bartLine, 'bart'), stationLayer(bartStations, 'bart')]);
     var commuterLayer = L.layerGroup([lineLayer(commuterLine, "commuter"), stationLayer(commuterStations, 'commuter')]);
     var intercityLayer = L.layerGroup([lineLayer(intercityLine, "intercity"), stationLayer(intercityStations, 'intercity')]);
+    var dtxLayer = L.layerGroup([lineLayer(dtxLine, "dtx")]);
 
     var bartOneLayer = L.layerGroup([lineLayer(bartCNLine, "bart1"), stationLayer(bartCNStations, 'bart1')]);
     var bartTwoLayer = L.layerGroup([lineLayer(bartNOLine, "bart2"), stationLayer(bartNOStations, 'bart2')]);
@@ -63,6 +66,7 @@ function initializeMap() {
         "Existing BART network": bartLayer,
         "Existing commuter rail network": commuterLayer,
         "Existing intercity rail network": intercityLayer,
+        "Future Downtown Rail Extension": dtxLayer,
         "Alternative 1 (BART): New Opportunities": bartTwoLayer,
         "Alternative 2 (BART): Critical Needs": bartOneLayer,
         "Alternative 3 (standard rail): Connecting the Megaregion": stdLayer
@@ -71,6 +75,7 @@ function initializeMap() {
     // initialize up the L.control.layers
     L.control.layers(null, overlayMaps).addTo(mymap);
 
+    dtxLayer.addTo(mymap);
     commuterLayer.addTo(mymap);
     intercityLayer.addTo(mymap);
     bartLayer.addTo(mymap);
@@ -84,6 +89,16 @@ window.setTimeout(function() {
 
 
 }, 1000);
+
+
+var dtxLine = {
+    "type": "FeatureCollection",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+
+    "features": [
+        { "type": "Feature", "properties": { "Existing": null, "Operator": null, "Alt": null, "Approach": "DTX Approved Alignment" }, "geometry": { "type": "LineString", "coordinates": [[-122.394951308603751, 37.775863117586638], [-122.391362209622869, 37.780008250269319], [-122.391209640055351, 37.780293628880223], [-122.391175487931136, 37.780794244280735], [-122.391292733871509, 37.781152558485729], [-122.391650537397496, 37.78148826758455], [-122.398187691293614, 37.786792074538582], [-122.398755112404046, 37.787224221298089], [-122.39878419389612, 37.78734360576172], [-122.398811343569122, 37.787701452475481], [-122.398477533057005, 37.78810515128739], [-122.39527186389445, 37.790616544710922]] } }
+    ]
+}
 
 var stdStations = {
     "type": "FeatureCollection",
