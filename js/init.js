@@ -4,12 +4,21 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 */
 
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89541766-1', 'auto');
+ga('send', 'pageview');
+
+
 (function($) {
 
 	skel.init({
 		reset: 'full',
 		breakpoints: {
-			
+
 			// Global.
 				global: {
 					range: '*',
@@ -79,12 +88,12 @@
 		},
 		plugins: {
 			layers: {
-				
+
 				// Config.
 					config: {
 						transform: true
 					},
-				
+
 				// Navigation Panel.
 					navPanel: {
 						animation: 'pushX',
@@ -114,9 +123,9 @@
 	});
 
 	$(function() {
-		
+
 		// jQuery ready stuff.
-		
+
 	});
 
 })(jQuery);
